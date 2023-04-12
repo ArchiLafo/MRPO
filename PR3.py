@@ -1,6 +1,8 @@
 import uuid
 import unittest
 
+
+
 class Order:
     def __init__(self, customer_name, total_price, shipping_address):
         self.id = str(uuid.uuid4())
@@ -63,6 +65,7 @@ class TestOrderRepository(unittest.TestCase):
 
         nonexistent_order = repository.get(str(uuid.uuid4()))
         self.assertIsNone(nonexistent_order)
+
 class TestWarehouseRepository(unittest.TestCase):
     def test_save_and_get_warehouse(self):
         repository = WarehouseRepository()
@@ -78,7 +81,43 @@ class TestWarehouseRepository(unittest.TestCase):
         nonexistent_warehouse = repository.get(str(uuid.uuid4()))
         self.assertIsNone(nonexistent_warehouse)
 
-
-
 if __name__ == "__main__":
-    unittest.main()
+    # Здесь пользователь может создать экземпляры классов Order и Warehouse, сохранить их в соответствующие репозитории и затем получить их по идентификаторам
+    order_repository = OrderRepository()
+    warehouse_repository = WarehouseRepository()
+
+    # Создание и сохранение заказа в репозитории заказов
+    repository = OrderRepository()
+    order = Order("John Smith", 1000, "New York")
+    repository.save(order)
+
+    # Создание и сохранение склада в репозитории складов
+    warehouse_repository = WarehouseRepository()
+    warehouse = Warehouse("Warehouse 1", "Chicago")
+    warehouse_repository.save(warehouse)
+
+
+    # Получение сохраненных заказа и склада из соответствующих репозиториев по идентификаторам
+    order_repository = OrderRepository()
+    warehouse_repository = WarehouseRepository()
+
+    saved_order = repository.get(order.id)
+    saved_warehouse = warehouse_repository.get(warehouse.id)
+
+    #Вывод информации о сохраненных заказе и складе
+    if saved_order:
+        print("Saved order:")
+        print(f"ID: {saved_order.id}")
+        print(f"Customer name: {saved_order.customer_name}")
+        print(f"Total price: {saved_order.total_price}")
+        print(f"Shipping address: {saved_order.shipping_address}")
+    else:
+        print("Order not found in repository.")
+
+    if saved_warehouse:
+        print("Saved warehouse:")
+        print(f"ID: {saved_warehouse.id}")
+        print(f"Warehouse name: {saved_warehouse.name}")
+        print(f"Location: {saved_warehouse.location}")
+    else:
+        print("Warehouse not found in repository.")
