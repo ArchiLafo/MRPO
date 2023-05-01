@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+    <product  name="Товар 1" price="100" description="Описание товара 1"/>
+    <product  name="Товар 2" price="200" description="Описание товара 2"/>
+    <product  name="Товар 3" price="300" description="Описание товара 3"/>
+</products>
